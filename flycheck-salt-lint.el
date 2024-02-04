@@ -28,6 +28,9 @@
 
 ;; (require flycheck)
 ;; (require flycheck-salt-lint)
+;; (eval-after-load 'flycheck
+;;  '(flycheck-salt-lint-setup))
+;; (add-hook 'salt-mode-hook 'flycheck-mode)
 
 ;;; Code:
 
@@ -68,9 +71,14 @@ the BUFFER that was checked repectively."
                    :line (plist-get e :linenumber)
                    :column 0
                    :message (concat (plist-get e :message) (plist-get e :line))
-                   :id (plist-get e :id))) errors)
-        )
+                   :id (plist-get e :id))) errors))
     (json-error nil)))
+
+;;;###autoload
+(defun flycheck-salt-lint-setup ()
+  "Setup Flycheck with salt-lint."
+  (interactive)
+  (add-to-list 'flycheck-checkers 'salt-lint))
 
 (provide 'flycheck-salt-lint)
 ;;; flycheck-salt-lint.el ends here

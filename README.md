@@ -17,6 +17,9 @@ Download this file, put it into your load path and add the following to your `in
 ``` emacs-lisp
 (require flycheck)
 (require flycheck-salt-lint)
+(eval-after-load 'flycheck
+ '(flycheck-salt-lint-setup))
+(add-hook 'salt-mode-hook 'flycheck-mode)
 ```
 
 ## License
