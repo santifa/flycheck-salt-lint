@@ -1,7 +1,33 @@
 ;;; flycheck-salt-lint.el --- Support for salt-lint in flycheck -*- lexical-binding: t -*-
 
+;; Adds support for the checker salt-lint to flycheck.
+;; Copyright (C) 2024 Henrik Jürges <ratzeputz@rtzptz.xyz>
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;; Author: Henrik Jürges <ratzeputz@rtzptz.xyz>
+;; Version: 2024.02.04
+;; Package-Requires: ((emacs "27") (flycheck "29"))
+;; URL: https://github.com/santifa/flycheck-salt-lint
+
 ;;; Commentary;
 
+;; This package adds support for linting salt files (.sls) to flycheck.
+;; To use it download this file and add the following section to your init.el file:
+
+;; (require flycheck)
+;; (require flycheck-salt-lint)
 
 ;;; Code:
 
@@ -16,9 +42,6 @@ See URL `https://salt-lint.readthedocs.io/en/latest/'."
   :error-parser salt-lint-parser
   :error-filter (lambda (errors) (flycheck-sanitize-errors errors))
   :modes salt-mode)
-
-(flycheck-add-mode 'yaml-yamllint 'salt-mode)
-;flycheck-modes (yaml-mode yaml-ts-mode)
 
 (defun salt-lint-parser (output checker buffer)
   "Parse salt lint JSON errors from OUTPUT.
